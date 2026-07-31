@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="nine_mens_morris.AppTemplate">
+        <div class="nine-mens-container card shadow-sm p-4 text-center">
+            <h2 class="fw-bold mb-2">Nine Men's Morris</h2>
+
+            <div class="status-alert alert mb-3"
+                 t-att-class="state.winner ? 'alert-success' : (state.mustRemove ? 'alert-danger' : 'alert-info')">
+                <t t-out="state.message"/>
+            </div>
+
+            <div class="board-wrapper position-relative mx-auto">
+                <svg viewBox="0 0 600 600" class="game-board-svg">
+                    <rect x="50" y="50" width="500" height="500" class="board-line" />
+                    <rect x="130" y="130" width="340" height="340" class="board-line" />
+                    <rect x="210" y="210" width="180" height="180" class="board-line" />
+
+                    <line x1="300" y1="50" x2="300" y2="210" class="board-line" />
+                    <line x1="300" y1="390" x2="300" y2="550" class="board-line" />
+                    <line x1="50" y1="300" x2="210" y2="300" class="board-line" />
+                    <line x1="390" y1="300" x2="550" y2="300" class="board-line" />
+
+                    <t t-foreach="state.board" t-as="piece" t-key="piece_index">
+                        <g class="board-node" t-on-click="() => this.onNodeClick(piece_index)">
+                            <circle t-att-cx="getCoords(piece_index).x"
+                                    t-att-cy="getCoords(piece_index).y"
+                                    r="22"
+                                    class="click-target"
+                                    t-att-class="{'selected': state.selectedPos === piece_index}"/>
+
+                            <circle t-att-cx="getCoords(piece_index).x"
+                                    t-att-cy="getCoords(piece_index).y"
+                                    r="6"
+                                    class="node-point"/>
+
+                            <t t-if="piece !== 0">
+                                <circle t-att-cx="getCoords(piece_index).x"
+                                        t-att-cy="getCoords(piece_index).y"
+                                        r="18"
+                                        t-att-class="piece === 1 ? 'piece-player1' : 'piece-player2'"/>
+                            </t>
+                        </g>
+                    </t>
+                </svg>
+            </div>
+
+            <div class="mt-4">
+                <button class="btn btn-primary px-4" t-on-click="restart">Reset Game</button>
+            </div>
+        </div>
+    </t>
+</templates>

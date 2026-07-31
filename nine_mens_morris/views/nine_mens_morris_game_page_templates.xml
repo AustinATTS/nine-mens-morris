@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="game_page" name="Nine Men's Morris">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <div class="container py-4">
+                    <owl-component name="nine_mens_morris.App" />
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
