@@ -4,14 +4,19 @@
     'sequence': 200,
     'website': 'https://www.austinatts.co.uk',
     'summary': "Nine Men's Morris OWL game for Odoo.",
-    'version': '0.1.0',
+    'version': '0.3.0',
     'depends': ['web', 'website'],
     'currency': 'EUR',
     'price': 0.00,
     "data": [
+        "views/nine_mens_morris_game_page_templates.xml",
     ],
     'assets': {
         'web.assets_frontend': [
+            'nine_mens_morris/static/src/scss/nine_mens_morris.scss',
+            'nine_mens_morris/static/src/js/game_logic.js',
+            'nine_mens_morris/static/src/js/nine_mens_morris_app.js',
+            'nine_mens_morris/static/src/xml/app_templates.xml',
         ],
     },
     'author': 'Austin Welsh-Graham',
