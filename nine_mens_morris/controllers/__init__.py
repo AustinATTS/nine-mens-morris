@@ -1,0 +1,1 @@
+from . import nine_mens_morris_controller
