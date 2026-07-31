@@ -16,7 +16,7 @@ export class NineMensMorrisApp extends Component {
             mustRemove: this.game.mustRemove,
             winner: this.game.winner,
             selectedPos: null,
-            message: "Player 1 (Red): Place a game piece on the board.",
+            message: "Player 1 (Red): Place a piece on the board.",
         });
     }
 
@@ -37,7 +37,7 @@ export class NineMensMorrisApp extends Component {
             this.state.message = `Player ${this.state.turn} (${this.state.turn === 1 ? 'Red' : 'Blue'}): Place a piece. (${this.state.unplaced[this.state.turn]} left)`;
         } else {
             const isFlying = this.state.placedCount[this.state.turn] === 3;
-            this.state.message = `Player ${this.state.turn} (${this.state.turn === 1 ? 'red' : 'Blue'}): ${isFlying ? 'Fly to any open spot.' : 'Move a piece to an adjacent spot.'}`;
+            this.state.message = `Player ${this.state.turn} (${this.state.turn === 1 ? 'Red' : 'Blue'}): ${isFlying ? 'Fly to any open spot.' : 'Move a piece to an adjacent spot.'}`;
         }
     }
 
@@ -46,6 +46,13 @@ export class NineMensMorrisApp extends Component {
 
         if (this.state.mustRemove) {
             if (this.game.removeOpponentPiece(index)) {
+                this.syncState();
+            }
+            return;
+        }
+
+        if (this.state.phase === 'placement') {
+            if (this.game.placePiece(index)) {
                 this.syncState();
             }
         } else if (this.state.phase === 'movement') {

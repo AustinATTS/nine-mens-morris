@@ -16,7 +16,7 @@
             'nine_mens_morris/static/src/scss/nine_mens_morris.scss',
             'nine_mens_morris/static/src/js/game_logic.js',
             'nine_mens_morris/static/src/js/nine_mens_morris_app.js',
-            'nine_mens_morris/static/src/xml/app_templates.xml',
+            'nine_mens_morris/static/src/xml/app_template.xml',
         ],
     },
     'author': 'Austin Welsh-Graham',
