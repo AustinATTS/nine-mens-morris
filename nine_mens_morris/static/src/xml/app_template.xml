@@ -9,6 +9,46 @@
                 <t t-out="state.message"/>
             </div>
 
+            <div class="card mb-3 p-3 text-start">
+                <div class="row g-3 align-items-end">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">Player 1 AI</label>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="checkbox"
+                                   class="form-check-input"
+                                   t-att-checked="state.aiPlayers[1]"
+                                   t-on-change="(ev) => this.setAiPlayer(1, ev.target.checked)"/>
+                            <select class="form-select"
+                                    t-att-disabled="!state.aiPlayers[1]"
+                                    t-att-value="state.aiModes[1]"
+                                    t-on-change="(ev) => this.setAiMode(1, ev.target.value)">
+                                <option value="perfect">Perfect</option>
+                                <option value="win">Just Win (Random Winning Move)</option>
+                                <option value="random">Random</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">Player 2 AI</label>
+                        <div class="d-flex align-items-center gap-2">
+                            <input type="checkbox"
+                                   class="form-check-input"
+                                   t-att-checked="state.aiPlayers[2]"
+                                   t-on-change="(ev) => this.setAiPlayer(2, ev.target.checked)"/>
+                            <select class="form-select"
+                                    t-att-disabled="!state.aiPlayers[2]"
+                                    t-att-value="state.aiModes[2]"
+                                    t-on-change="(ev) => this.setAiMode(2, ev.target.value)">
+                                <option value="perfect">Perfect</option>
+                                <option value="win">Just Win (Random Winning Move)</option>
+                                <option value="random">Random</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="board-wrapper position-relative mx-auto">
                 <svg viewBox="0 0 600 600" class="game-board-svg">
                     <rect x="50" y="50" width="500" height="500" class="board-line" />
@@ -19,6 +59,13 @@
                     <line x1="300" y1="390" x2="300" y2="550" class="board-line" />
                     <line x1="50" y1="300" x2="210" y2="300" class="board-line" />
                     <line x1="390" y1="300" x2="550" y2="300" class="board-line" />
+
+                    <line t-if="getRecommendationLine()"
+                          class="recommended-line rec-line-glow"
+                          t-att-x1="getRecommendationLine().x1"
+                          t-att-y1="getRecommendationLine().y1"
+                          t-att-x2="getRecommendationLine().x2"
+                          t-att-y2="getRecommendationLine().y2"/>
 
                     <t t-foreach="state.board" t-as="piece" t-key="piece_index">
                         <g class="board-node" t-on-click="() => this.onNodeClick(piece_index)">
@@ -33,6 +80,30 @@
                                     r="6"
                                     class="node-point"/>
 
+                            <text class="node-label"
+                                  t-att-x="getLabelCoords(piece_index).x"
+                                  t-att-y="getLabelCoords(piece_index).y">
+                                <t t-out="getNodeLabel(piece_index)"/>
+                            </text>
+
+                            <circle t-if="isRecommendationFrom(piece_index)"
+                                    t-att-cx="getCoords(piece_index).x"
+                                    t-att-cy="getCoords(piece_index).y"
+                                    r="26"
+                                    class="recommended-from rec-pulse-ring"/>
+
+                            <circle t-if="isRecommendationTo(piece_index)"
+                                    t-att-cx="getCoords(piece_index).x"
+                                    t-att-cy="getCoords(piece_index).y"
+                                    r="18"
+                                    t-att-class="getRecommendationGhostClass() + ' rec-ghost-piece'"/>
+
+                            <circle t-if="isRecommendationRemove(piece_index)"
+                                    t-att-cx="getCoords(piece_index).x"
+                                    t-att-cy="getCoords(piece_index).y"
+                                    r="26"
+                                    class="recommended-remove rec-remove-ring"/>
+
                             <t t-if="piece !== 0">
                                 <circle t-att-cx="getCoords(piece_index).x"
                                         t-att-cy="getCoords(piece_index).y"
@@ -45,6 +116,24 @@
             </div>
 
             <div class="mt-4">
+                <button class="btn btn-outline-info px-4 me-2"
+                        t-att-disabled="state.aiThinking or state.winner or state.mustRemove"
+                        t-on-click="requestRecommendedMove">
+                    Recommended Move
+                </button>
+
+                <button class="btn btn-outline-secondary px-4 me-2"
+                        t-att-disabled="state.aiThinking"
+                        t-on-click="undoMove">
+                    Undo
+                </button>
+
+                <button class="btn btn-outline-secondary px-4 me-2"
+                        t-att-disabled="state.aiThinking"
+                        t-on-click="redoMove">
+                    Redo
+                </button>
+
                 <button class="btn btn-primary px-4" t-on-click="restart">Reset Game</button>
             </div>
         </div>
