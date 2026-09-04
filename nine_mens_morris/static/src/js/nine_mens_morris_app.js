@@ -100,10 +100,10 @@ export class NineMensMorrisApp extends Component {
         }
         const toLabel = (index) => String.fromCharCode(97 + index);
         if (move.from === 24) {
-            const removeText = move.removeStone !== 24 ? `, remove ${toLabel(move.removeStone)}` : "";
+            const removeText = move.remove_stone !== 24 ? `, remove ${toLabel(move.remove_stone)}` : "";
             return `place ${toLabel(move.to)}${removeText}`;
         }
-        const removeText = move.removeStone !== 24 ? `, remove ${toLabel(move.removeStone)}` : "";
+        const removeText = move.remove_stone !== 24 ? `, remove ${toLabel(move.remove_stone)}` : "";
         return `${toLabel(move.from)} -> ${toLabel(move.to)}${removeText}`;
     }
 
@@ -129,7 +129,7 @@ export class NineMensMorrisApp extends Component {
     }
 
     isRecommendationRemove(index) {
-        return this.hasRecommendation() && this.state.recommendation.removeStone !== 24 && this.state.recommendation.removeStone === index;
+        return this.hasRecommendation() && this.state.recommendation.remove_stone !== 24 && this.state.recommendation.remove_stone === index;
     }
 
     getRecommendationGhostClass() {
@@ -279,8 +279,8 @@ export class NineMensMorrisApp extends Component {
             return false;
         }
 
-        if (move.removeStone !== 24) {
-            if (!this.game.removeOpponentPiece(move.removeStone)) {
+        if (move.remove_stone !== 24) {
+            if (!this.game.removeOpponentPiece(move.remove_stone)) {
                 return false;
             }
         }
@@ -292,21 +292,21 @@ export class NineMensMorrisApp extends Component {
         const choices = Array.isArray(response?.choices) ? response.choices : [];
 
         if (mode === "random" && choices.length > 0) {
-            const randomChoice = choices[Math.floor(Math.random() * choices.length)];
-            return randomChoice.move;
+            const random_choice = choices[Math.floor(Math.random() * choices.length)];
+            return random_choice.move;
         }
 
         if (mode === "win" && choices.length > 0) {
-            const winningChoices = choices.filter((choice) =>
-                choice.shortValueLabel === "game_won" || choice.shortValue === 3
+            const winning_choices = choices.filter((choice) =>
+                choice.short_value_label === "game_won" || choice.short_value === 3
             );
-            if (winningChoices.length > 0) {
-                const randomWinningChoice = winningChoices[Math.floor(Math.random() * winningChoices.length)];
-                return randomWinningChoice.move;
+            if (winning_choices.length > 0) {
+                const random_winning_choice = winning_choices[Math.floor(Math.random() * winning_choices.length)];
+                return random_winning_choice.move;
             }
         }
 
-        return response?.bestMove || null;
+        return response?.best_move || null;
     }
 
     async callAiEndpoint(params) {
@@ -344,10 +344,10 @@ export class NineMensMorrisApp extends Component {
         try {
             const response = await this.callAiEndpoint({
                 board: this.state.board,
-                currentPlayer: this.state.turn,
+                current_player: this.state.turn,
                 phase: this.state.phase,
-                totalNumStonesMissing: this.getPayloadMissingStones(),
-                searchDepth: 4,
+                total_num_stones_missing: this.getPayloadMissingStones(),
+                search_depth: 3,
             });
 
             if (!response || !response.success) {
@@ -382,10 +382,10 @@ export class NineMensMorrisApp extends Component {
         try {
             const response = await this.callAiEndpoint({
                 board: this.state.board,
-                currentPlayer: this.state.turn,
+                current_player: this.state.turn,
                 phase: this.state.phase,
-                totalNumStonesMissing: this.getPayloadMissingStones(),
-                searchDepth: 4,
+                total_num_stones_missing: this.getPayloadMissingStones(),
+                search_depth: 3,
             });
 
             if (!response || !response.success) {

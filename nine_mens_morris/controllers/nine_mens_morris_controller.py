@@ -7,6 +7,7 @@ import urllib.request
 from odoo import http
 from odoo.http import request
 
+
 class NineMensMorrisController(http.Controller):
     @http.route('/nine-mens-morris/game_page', type='http', auth='public', website=True)
     def game_page(self):
@@ -18,15 +19,15 @@ class NineMensMorrisController(http.Controller):
         )
 
     @http.route('/nine-mens-morris/ai/move', type='json', auth='public', website=True, csrf=False)
-    def ai_move(self, board, currentPlayer=1, phase='placement', totalNumStonesMissing=0, searchDepth=4):
+    def ai_move(self, board, current_player=1, phase='placement', total_num_stones_missing=0, search_depth=4):
         is_setting_phase = phase == 'placement'
 
         payload = {
             'board': board,
-            'currentPlayer': currentPlayer,
-            'settingPhase': is_setting_phase,
-            'totalNumStonesMissing': totalNumStonesMissing if is_setting_phase else 0,
-            'searchDepth': searchDepth,
+            'current_player': current_player,
+            'setting_phase': is_setting_phase,
+            'total_num_stones_missing': total_num_stones_missing if is_setting_phase else 0,
+            'search_depth': search_depth,
         }
 
         params_model = request.env['ir.config_parameter'].sudo()
@@ -93,7 +94,11 @@ class NineMensMorrisController(http.Controller):
             remote_request = urllib.request.Request(
                 remote_url,
                 data=request_payload,
-                headers={'Content-Type': 'application/json'},
+                headers={
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'User-Agent': 'MuehleBridge-Odoo/1.0',
+                },
                 method='POST',
             )
             with urllib.request.urlopen(remote_request, timeout=10) as response:

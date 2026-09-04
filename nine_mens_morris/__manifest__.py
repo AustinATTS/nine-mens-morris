@@ -4,7 +4,7 @@
     'sequence': 200,
     'website': 'https://www.austinatts.co.uk',
     'summary': "Nine Men's Morris OWL game for Odoo.",
-    'version': '0.3.0',
+    'version': '0.4.0',
     'depends': ['web', 'website'],
     'currency': 'EUR',
     'price': 0.00,
