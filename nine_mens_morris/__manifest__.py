@@ -10,6 +10,7 @@
     'price': 0.00,
     "data": [
         "views/nine_mens_morris_game_page_templates.xml",
+        "views/res_config_settings_views.xml",
     ],
     'assets': {
         'web.assets_frontend': [

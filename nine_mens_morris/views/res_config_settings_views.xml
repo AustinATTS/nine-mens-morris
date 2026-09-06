@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.nine_mens_morris</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app
+                        data-string="Nine Men's Morris"
+                        string="Nine Men's Morris"
+                        name="nine_mens_morris"
+                >
+                    <block title="AI Configuration">
+
+                        <setting
+                                id="nine_mens_morris_ai_provider_setting"
+                                string="AI Provider"
+                                help="Select whether the AI should be accessed through a remote HTTP bridge or a locally installed bridge."
+                        >
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label
+                                            for="nine_mens_morris_ai_provider"
+                                            class="col-lg-4 o_light_label"
+                                    />
+                                    <field
+                                            name="nine_mens_morris_ai_provider"
+                                            class="w-50"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+
+                        <setting
+                                id="nine_mens_morris_ai_remote_url_setting"
+                                string="Remote Bridge URL"
+                                help="URL of the remote Nine Men's Morris AI bridge."
+                                invisible="nine_mens_morris_ai_provider != 'remote'"
+                        >
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <field
+                                            name="nine_mens_morris_ai_remote_url"
+                                            class="w-100"
+                                            placeholder="https://muehle.example.com/evaluate"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+
+                        <setting
+                                id="nine_mens_morris_ai_local_command_setting"
+                                string="Local Bridge Command"
+                                help="Command used to execute the local Nine Men's Morris AI bridge. The game state is passed to the command as JSON through stdin."
+                                invisible="nine_mens_morris_ai_provider != 'local'"
+                        >
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <field
+                                            name="nine_mens_morris_ai_local_command"
+                                            class="w-100"
+                                            placeholder="/path/to/muehle-bridge"
+                                    />
+                                </div>
+                            </div>
+                        </setting>
+
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="nine_mens_morris_configuration_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'module': 'nine_mens_morris'}</field>
+    </record>
+
+</odoo>

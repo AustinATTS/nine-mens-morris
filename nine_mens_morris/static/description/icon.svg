@@ -1,0 +1,94 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFF3DE"/>
+      <stop offset="100%" stop-color="#F4D9A8"/>
+    </linearGradient>
+    <linearGradient id="crust" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E8B368"/>
+      <stop offset="55%" stop-color="#D19A52"/>
+      <stop offset="100%" stop-color="#B97C3A"/>
+    </linearGradient>
+    <radialGradient id="sheen" cx="35%" cy="25%" r="70%">
+      <stop offset="0%" stop-color="#FFE8BE" stop-opacity="0.65"/>
+      <stop offset="100%" stop-color="#FFE8BE" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#7A4A1E" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="200" height="200" rx="42" fill="url(#bg)"/>
+
+  <path d="M0 172 a42 42 0 0 0 42 28 h116 a42 42 0 0 0 42 -28 z" fill="#8B5A2B" opacity="0.18"/>
+
+  <path d="M28 108
+           C 26 76, 54 40, 100 40
+           C 146 40, 174 76, 172 108
+           C 170 142, 142 160, 100 160
+           C 58 160, 30 142, 28 108 Z"
+        fill="url(#crust)" filter="url(#softShadow)"/>
+
+  <g fill="#FCE9C6" opacity="0.55">
+    <circle cx="42" cy="95" r="2.2"/>
+    <circle cx="52" cy="72" r="1.6"/>
+    <circle cx="150" cy="88" r="2"/>
+    <circle cx="160" cy="115" r="1.6"/>
+    <circle cx="45" cy="130" r="1.8"/>
+    <circle cx="158" cy="140" r="1.7"/>
+    <circle cx="100" cy="46" r="1.6"/>
+    <circle cx="120" cy="53" r="1.4"/>
+    <circle cx="78" cy="50" r="1.4"/>
+  </g>
+
+  <path d="M28 108
+           C 26 76, 54 40, 100 40
+           C 146 40, 174 76, 172 108
+           C 170 142, 142 160, 100 160
+           C 58 160, 30 142, 28 108 Z"
+        fill="url(#sheen)"/>
+
+  <g stroke="#6B3E1A" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round" fill="none" opacity="0.9">
+    <path d="M50,55 L95,55 L140,55 L140,100 L140,145 L95,145 L50,145 L50,100 Z"/>
+    <path d="M65,70 L95,70 L125,70 L125,100 L125,130 L95,130 L65,130 L65,100 Z"/>
+    <path d="M80,85 L95,85 L110,85 L110,100 L110,115 L95,115 L80,115 L80,100 Z"/>
+    <path d="M95,55 L95,85"/>
+    <path d="M140,100 L110,100"/>
+    <path d="M95,145 L95,115"/>
+    <path d="M50,100 L80,100"/>
+  </g>
+
+  <g fill="#6B3E1A" opacity="0.85">
+    <circle cx="50" cy="55" r="2.6"/>
+    <circle cx="95" cy="55" r="2.6"/>
+    <circle cx="140" cy="55" r="2.6"/>
+    <circle cx="50" cy="100" r="2.6"/>
+    <circle cx="140" cy="100" r="2.6"/>
+    <circle cx="50" cy="145" r="2.6"/>
+    <circle cx="95" cy="145" r="2.6"/>
+    <circle cx="140" cy="145" r="2.6"/>
+    <circle cx="65" cy="70" r="2.4"/>
+    <circle cx="95" cy="70" r="2.4"/>
+    <circle cx="125" cy="70" r="2.4"/>
+    <circle cx="65" cy="100" r="2.4"/>
+    <circle cx="125" cy="100" r="2.4"/>
+    <circle cx="65" cy="130" r="2.4"/>
+    <circle cx="95" cy="130" r="2.4"/>
+    <circle cx="125" cy="130" r="2.4"/>
+    <circle cx="80" cy="85" r="2.2"/>
+    <circle cx="95" cy="85" r="2.2"/>
+    <circle cx="110" cy="85" r="2.2"/>
+    <circle cx="80" cy="100" r="2.2"/>
+    <circle cx="110" cy="100" r="2.2"/>
+    <circle cx="80" cy="115" r="2.2"/>
+    <circle cx="95" cy="115" r="2.2"/>
+    <circle cx="110" cy="115" r="2.2"/>
+  </g>
+
+  <g>
+    <circle cx="50" cy="55" r="6.5" fill="#FDF0D5" stroke="#B97C3A" stroke-width="1.4"/>
+    <circle cx="140" cy="145" r="6.5" fill="#3D2416" stroke="#241205" stroke-width="1.2"/>
+    <circle cx="95" cy="130" r="6.5" fill="#FDF0D5" stroke="#B97C3A" stroke-width="1.4"/>
+    <circle cx="125" cy="70" r="6.5" fill="#3D2416" stroke="#241205" stroke-width="1.2"/>
+  </g>
+</svg>
