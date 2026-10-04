@@ -21,7 +21,7 @@ class NineMensMorrisController(http.Controller):
             }
         )
 
-    @http.route('/nine-mens-morris/ai/move', type='json', auth='public', website=True, csrf=False)
+    @http.route('/nine-mens-morris/ai/move', type='jsonrpc', auth='public', website=True, csrf=False)
     def ai_move(self, board, current_player=1, phase='placement', total_num_stones_missing=0, search_depth=4):
         is_setting_phase = phase == 'placement'
 
