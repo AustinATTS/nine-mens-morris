@@ -5,8 +5,8 @@
             <h2 class="fw-bold mb-2">Nine Men's Morris</h2>
 
             <div class="status-alert alert mb-3"
-                 t-att-class="state.winner ? 'alert-success' : (state.mustRemove ? 'alert-danger' : 'alert-info')">
-                <t t-out="state.message"/>
+                 t-att-class="this.state.winner ? 'alert-success' : (this.state.mustRemove ? 'alert-danger' : 'alert-info')">
+                <t t-out="this.state.message"/>
             </div>
 
             <div class="card mb-3 p-3 text-start">
@@ -16,11 +16,11 @@
                         <div class="d-flex align-items-center gap-2">
                             <input type="checkbox"
                                    class="form-check-input"
-                                   t-att-checked="state.aiPlayers[1]"
+                                   t-att-checked="this.state.aiPlayers[1]"
                                    t-on-change="(ev) => this.setAiPlayer(1, ev.target.checked)"/>
                             <select class="form-select"
-                                    t-att-disabled="!state.aiPlayers[1]"
-                                    t-att-value="state.aiModes[1]"
+                                    t-att-disabled="!this.state.aiPlayers[1]"
+                                    t-att-value="this.state.aiModes[1]"
                                     t-on-change="(ev) => this.setAiMode(1, ev.target.value)">
                                 <option value="perfect">Perfect</option>
                                 <option value="win">Just Win (Random Winning Move)</option>
@@ -34,11 +34,11 @@
                         <div class="d-flex align-items-center gap-2">
                             <input type="checkbox"
                                    class="form-check-input"
-                                   t-att-checked="state.aiPlayers[2]"
+                                   t-att-checked="this.state.aiPlayers[2]"
                                    t-on-change="(ev) => this.setAiPlayer(2, ev.target.checked)"/>
                             <select class="form-select"
-                                    t-att-disabled="!state.aiPlayers[2]"
-                                    t-att-value="state.aiModes[2]"
+                                    t-att-disabled="!this.state.aiPlayers[2]"
+                                    t-att-value="this.state.aiModes[2]"
                                     t-on-change="(ev) => this.setAiMode(2, ev.target.value)">
                                 <option value="perfect">Perfect</option>
                                 <option value="win">Just Win (Random Winning Move)</option>
@@ -60,53 +60,53 @@
                     <line x1="50" y1="300" x2="210" y2="300" class="board-line" />
                     <line x1="390" y1="300" x2="550" y2="300" class="board-line" />
 
-                    <line t-if="getRecommendationLine()"
+                    <line t-if="this.getRecommendationLine()"
                           class="recommended-line rec-line-glow"
-                          t-att-x1="getRecommendationLine().x1"
-                          t-att-y1="getRecommendationLine().y1"
-                          t-att-x2="getRecommendationLine().x2"
-                          t-att-y2="getRecommendationLine().y2"/>
+                          t-att-x1="this.getRecommendationLine().x1"
+                          t-att-y1="this.getRecommendationLine().y1"
+                          t-att-x2="this.getRecommendationLine().x2"
+                          t-att-y2="this.getRecommendationLine().y2"/>
 
-                    <t t-foreach="state.board" t-as="piece" t-key="piece_index">
+                    <t t-foreach="this.state.board" t-as="piece" t-key="piece_index">
                         <g class="board-node" t-on-click="() => this.onNodeClick(piece_index)">
-                            <circle t-att-cx="getCoords(piece_index).x"
-                                    t-att-cy="getCoords(piece_index).y"
+                            <circle t-att-cx="this.getCoords(piece_index).x"
+                                    t-att-cy="this.getCoords(piece_index).y"
                                     r="22"
                                     class="click-target"
-                                    t-att-class="{'selected': state.selectedPos === piece_index}"/>
+                                    t-att-class="{'selected': this.state.selectedPos === piece_index}"/>
 
-                            <circle t-att-cx="getCoords(piece_index).x"
-                                    t-att-cy="getCoords(piece_index).y"
+                            <circle t-att-cx="this.getCoords(piece_index).x"
+                                    t-att-cy="this.getCoords(piece_index).y"
                                     r="6"
                                     class="node-point"/>
 
                             <text class="node-label"
-                                  t-att-x="getLabelCoords(piece_index).x"
-                                  t-att-y="getLabelCoords(piece_index).y">
-                                <t t-out="getNodeLabel(piece_index)"/>
+                                  t-att-x="this.getLabelCoords(piece_index).x"
+                                  t-att-y="this.getLabelCoords(piece_index).y">
+                                <t t-out="this.getNodeLabel(piece_index)"/>
                             </text>
 
-                            <circle t-if="isRecommendationFrom(piece_index)"
-                                    t-att-cx="getCoords(piece_index).x"
-                                    t-att-cy="getCoords(piece_index).y"
+                            <circle t-if="this.isRecommendationFrom(piece_index)"
+                                    t-att-cx="this.getCoords(piece_index).x"
+                                    t-att-cy="this.getCoords(piece_index).y"
                                     r="26"
                                     class="recommended-from rec-pulse-ring"/>
 
-                            <circle t-if="isRecommendationTo(piece_index)"
-                                    t-att-cx="getCoords(piece_index).x"
-                                    t-att-cy="getCoords(piece_index).y"
+                            <circle t-if="this.isRecommendationTo(piece_index)"
+                                    t-att-cx="this.getCoords(piece_index).x"
+                                    t-att-cy="this.getCoords(piece_index).y"
                                     r="18"
-                                    t-att-class="getRecommendationGhostClass() + ' rec-ghost-piece'"/>
+                                    t-att-class="this.getRecommendationGhostClass() + ' rec-ghost-piece'"/>
 
-                            <circle t-if="isRecommendationRemove(piece_index)"
-                                    t-att-cx="getCoords(piece_index).x"
-                                    t-att-cy="getCoords(piece_index).y"
+                            <circle t-if="this.isRecommendationRemove(piece_index)"
+                                    t-att-cx="this.getCoords(piece_index).x"
+                                    t-att-cy="this.getCoords(piece_index).y"
                                     r="26"
                                     class="recommended-remove rec-remove-ring"/>
 
                             <t t-if="piece !== 0">
-                                <circle t-att-cx="getCoords(piece_index).x"
-                                        t-att-cy="getCoords(piece_index).y"
+                                <circle t-att-cx="this.getCoords(piece_index).x"
+                                        t-att-cy="this.getCoords(piece_index).y"
                                         r="18"
                                         t-att-class="piece === 1 ? 'piece-player1' : 'piece-player2'"/>
                             </t>
@@ -117,24 +117,24 @@
 
             <div class="mt-4">
                 <button class="btn btn-outline-info px-4 me-2"
-                        t-att-disabled="state.aiThinking or state.winner or state.mustRemove"
-                        t-on-click="requestRecommendedMove">
+                        t-att-disabled="this.state.aiThinking or this.state.winner or this.state.mustRemove"
+                        t-on-click="this.requestRecommendedMove">
                     Recommended Move
                 </button>
 
                 <button class="btn btn-outline-secondary px-4 me-2"
-                        t-att-disabled="state.aiThinking"
-                        t-on-click="undoMove">
+                        t-att-disabled="this.state.aiThinking"
+                        t-on-click="this.undoMove">
                     Undo
                 </button>
 
                 <button class="btn btn-outline-secondary px-4 me-2"
-                        t-att-disabled="state.aiThinking"
-                        t-on-click="redoMove">
+                        t-att-disabled="this.state.aiThinking"
+                        t-on-click="this.redoMove">
                     Redo
                 </button>
 
-                <button class="btn btn-primary px-4" t-on-click="restart">Reset Game</button>
+                <button class="btn btn-primary px-4" t-on-click="this.restart">Reset Game</button>
             </div>
         </div>
     </t>

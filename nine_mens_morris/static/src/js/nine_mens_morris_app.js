@@ -1,4 +1,4 @@
-import { Component, useState } from "@odoo/owl";
+import { Component, proxy } from "@odoo/owl";
 import { registry } from "@web/core/registry";
 import { NineMensMorrisGame } from "./game_logic";
 
@@ -9,7 +9,7 @@ export class NineMensMorrisApp extends Component {
         this.game = new NineMensMorrisGame();
         this.undoStack = [];
         this.redoStack = [];
-        this.state = useState({
+        this.state = proxy({
             board: [...this.game.board],
             turn: this.game.turn,
             phase: this.game.phase,
